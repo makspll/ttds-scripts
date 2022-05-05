@@ -1,7 +1,11 @@
+import numpy as np
 from relevance_metrics import *
 from encoding import *
 from retrieval import *
 from comparing import *
+from classification import *
+from sklearn.metrics import confusion_matrix as sklearn_confusion_matrix 
+from sklearn.metrics import f1_score,precision_score,recall_score,accuracy_score
 
 if __name__ == "__main__":
     ### Playground
@@ -124,3 +128,37 @@ if __name__ == "__main__":
     print_class_term_ranking(rank_terms_by_stat(docs,doc_classes,mutual_information))
     print_class_term_ranking(rank_terms_by_stat(docs,doc_classes,chi_squared))
 
+
+    ## Classification 
+
+    # metrics q6 2021
+
+    conf_matrix = [[500,1,9,2],
+                    [37,86,5,100],
+                    [62,14,95,2],
+                    [49,50,6,120]]
+    
+    conf_matrix = confusion_matrix(conf_matrix)
+
+    class_labels = [0,1,2,3]
+
+    # wee hack to reduce amount of code
+    y_true,y_pred = get_fake_sklearn_true_and_pred(conf_matrix)
+
+    print(conf_matrix)
+    print(sklearn_confusion_matrix(y_true,y_pred))
+
+    # we can now do all kinds of shit with sklearns metrics
+    print(accuracy_score(y_true,y_pred))
+
+    ## micro-averaged scores
+    # identical to accuracy for micro
+    print(f1_score(y_true,y_pred,labels=class_labels,average="micro"))
+    print(recall_score(y_true,y_pred,labels=class_labels,average="micro"))
+    print(precision_score(y_true,y_pred,labels=class_labels,average="micro"))
+
+    ## macro-averaged scores
+    # different in macro
+    print(f1_score(y_true,y_pred,labels=class_labels,average="macro"))
+    print(recall_score(y_true,y_pred,labels=class_labels,average="macro"))
+    print(precision_score(y_true,y_pred,labels=class_labels,average="macro"))
