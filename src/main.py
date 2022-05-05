@@ -1,5 +1,5 @@
 from relevance_metrics import *
-
+from encoding import *
 
 if __name__ == "__main__":
     ### Playground
@@ -55,3 +55,16 @@ if __name__ == "__main__":
     dcg_q = [3,2,3,0,0,1,2,2,3,0]
     print(discounted_cumulative_gain_at_k(dcg_q,10))
     print(normalised_discounted_cumulative_gain_at_k(dcg_q,10))
+
+    print(average_precision([0,1,0,1,0,1],6))
+    print(normalised_discounted_cumulative_gain_at_k([0,1,0,1,0,1],6))
+
+    # encoding slides
+
+    # slide is wrong on the delta encoding of 100011 - 100019
+    print(delta_encode([100002,100007,100008,100011,100019]))
+    print(delta_decode([100002,5,1,3,8]))
+
+    vbyte_vals = [5,130,7]
+    print_in_binary(vbyte_encode(vbyte_vals))
+    print(vbyte_decode(vbyte_encode(vbyte_vals)))
