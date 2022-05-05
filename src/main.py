@@ -68,3 +68,8 @@ if __name__ == "__main__":
     vbyte_vals = [5,130,7]
     print_in_binary(vbyte_encode(vbyte_vals))
     print(vbyte_decode(vbyte_encode(vbyte_vals)))
+
+    # example - read vbyte + delta encoded list, then decode it
+    bits = bitstring_to_bytes("100001100000001110000101000000011000000110000110")
+    print_in_binary(bits)
+    print(delta_decode(vbyte_decode(bits)))

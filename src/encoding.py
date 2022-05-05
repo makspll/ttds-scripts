@@ -17,7 +17,7 @@ def delta_decode(sequence: List[int]) -> List[int]:
         last = last + e
         new_sequence.append(last) 
 
-    return new_sequence
+    return [sequence[0]] + new_sequence
 
 
 def vbyte_encode(sequence : List[int]) -> bytearray:
@@ -81,5 +81,8 @@ def concat_bytes(bytes : List[int]):
     return val 
 
 def print_in_binary(bytes : bytearray):
-
     print(" ".join([f"{x:08b}" for x in bytes]))
+
+
+def bitstring_to_bytes(s : str) -> bytearray:
+    return int(s, 2).to_bytes((len(s) + 7) // 8, byteorder='big')
