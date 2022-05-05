@@ -1,5 +1,6 @@
 from relevance_metrics import *
 from encoding import *
+from retrieval import *
 
 if __name__ == "__main__":
     ### Playground
@@ -73,3 +74,31 @@ if __name__ == "__main__":
     bits = bitstring_to_bytes("100001100000001110000101000000011000000110000110")
     print_in_binary(bits)
     print(delta_decode(vbyte_decode(bits)))
+
+
+    # Retrieval
+
+    # document format
+    d1 = (1,["he","likes","to","wink","and","drink"])
+    d2 = (2,["he","likes","to","drink"])
+
+    print(get_vocabulary([d1,d2]))
+    print(get_tfidfs([d1,d2]))
+
+    # jacard coefficient slides
+
+    print(jaccard_coefficient(d1,d2))
+
+
+    # example of tfidf query (q2 in 2020 may)
+
+    d1 = (1,["fat","dog","fat","dog"])
+    d2 = (2,["run","watch","dog","job"])
+    d3 = (3,["fat","fat","fat","dog"])
+    d4 = (4,["fat","dog","fat","go"])
+    d5 = (5,["job","fat","fat","dog"])
+    d6 = (6,["go","fat","fat","job"])
+    d7 = (7,["watch","job","run","dog"])
+    d8 = (8,["nice","nice","lovely","dog"])
+    docs = [d1,d2,d3,d4,d5,d6,d7,d8]
+    print(tfidf_query(docs,["fat","dog"],get_tfidfs(docs),"ntn"))
