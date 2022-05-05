@@ -74,7 +74,7 @@ def jaccard_coefficient(doc1 : Document, doc2: Document):
 
 def tfidf_query(documents : List[Document], query: List[str], tfidfs: Tfidf, smart_variant="ltn") -> QueryResults:
     """ performs a tfidf query, not exactly aligned with the SMART retrieval system, but should work for exam questions, 
-        particularly normalisation is different, there is no notion of vectorisation"""
+        particularly normalisation is different, there is no notion of a query vector,"""
     query_scores = defaultdict(float)
 
     query_vocab = set(query)

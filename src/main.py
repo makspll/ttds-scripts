@@ -1,6 +1,7 @@
 from relevance_metrics import *
 from encoding import *
 from retrieval import *
+from comparing import *
 
 if __name__ == "__main__":
     ### Playground
@@ -76,7 +77,7 @@ if __name__ == "__main__":
     print(delta_decode(vbyte_decode(bits)))
 
 
-    # Retrieval
+    ## Retrieval
 
     # document format
     d1 = (1,["he","likes","to","wink","and","drink"])
@@ -102,3 +103,24 @@ if __name__ == "__main__":
     d8 = (8,["nice","nice","lovely","dog"])
     docs = [d1,d2,d3,d4,d5,d6,d7,d8]
     print(tfidf_query(docs,["fat","dog"],get_tfidfs(docs),"ntn"))
+
+
+    ## comparison
+
+    # 2021 q7
+    d1 = (1,["hop","frog","nice","frog"])
+    d2 = (2,["frog","pond","watch","hop"])
+    d3 = (3,["good","good","good","frog"])
+    d4 = (4,["good","nice","frog","go"])
+    d5 = (5,["pond","good","good","frog"])
+    d6 = (6,["go","good","good","pond"])
+    d7 = (7,["watch","pond","hop","frog"])
+    d8 = (8,["nice","nice","quiet","pond"])
+    docs = [d1,d2,d3,d4,d5,d6,d7,d8]
+
+    doc_classes = {1:0,2:0,3:0,4:0,5:1,6:1,7:1,8:1}
+    # mutual information
+
+    print_class_term_ranking(rank_terms_by_stat(docs,doc_classes,mutual_information))
+    print_class_term_ranking(rank_terms_by_stat(docs,doc_classes,chi_squared))
+
