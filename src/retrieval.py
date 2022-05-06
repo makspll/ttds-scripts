@@ -21,6 +21,9 @@ Tfidf = Dict[str,"TFIDFEntry"]
 """ Query results type """
 QueryResults = Dict[DocID, float]
 
+""" Query/document vector representation """
+TermVector = List[float]
+
 @dataclass(eq=True,repr=False)
 class TFIDFEntry():
     token : str = field(repr=False)
@@ -113,3 +116,22 @@ def tfidf_query(documents : List[Document], query: List[str], tfidfs: Tfidf, sma
             raise Exception("Smart variant not supported")
 
     return query_scores
+
+
+
+def rocchios_algorithm(
+    query : TermVector,
+    relevant: List[TermVector], 
+    non_relevant : List[TermVector],
+    a,b,g):
+
+    assert len(query) == len(relevant[0])
+    assert len(relevant[0]) == len(non_relevant[0])
+
+    new_query = [0] * len(query)
+    for i in range(len(query)):
+        new_query[i] = a * query[i]
+        new_query[i] += (b/len(relevant)) * sum([x[i] for x in relevant])
+        new_query[i] -= (g/len(non_relevant)) * sum([x[i] for x in non_relevant])
+    
+    return new_query

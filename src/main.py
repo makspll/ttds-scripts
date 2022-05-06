@@ -106,6 +106,7 @@ if __name__ == "__main__":
     d7 = (7,["watch","job","run","dog"])
     d8 = (8,["nice","nice","lovely","dog"])
     docs = [d1,d2,d3,d4,d5,d6,d7,d8]
+    print(get_tfidfs(docs))
     print(tfidf_query(docs,["fat","dog"],get_tfidfs(docs),"ntn"))
 
 
@@ -162,3 +163,14 @@ if __name__ == "__main__":
     print(f1_score(y_true,y_pred,labels=class_labels,average="macro"))
     print(recall_score(y_true,y_pred,labels=class_labels,average="macro"))
     print(precision_score(y_true,y_pred,labels=class_labels,average="macro"))
+
+    
+    ## Query correction
+
+    # rochios algorithm 2020 q 2
+
+    query = [0.2,0.06,0,0,0,0,0,0]
+    rel = [0,0.06,0.6,0.6,0.3,0,0,0]
+    irel = [0.4,0.12,0,0,0,0,0,0]
+
+    print(rocchios_algorithm(query,[rel],[irel],1,1,1))
