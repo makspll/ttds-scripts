@@ -56,7 +56,6 @@ def get_binary_class_term_matrix(
 
 def mutual_information(bctm : ClassTermMatrix):
     """ computes the mutual information for a class-term pair given it's count matrix"""
-    
     def term(left_sum, bottom_sum):
         left_side = left_sum / bctm["N"] 
 
@@ -66,7 +65,7 @@ def mutual_information(bctm : ClassTermMatrix):
             return (left_sum/bctm["N"]) * log2((bctm["N"] * left_sum)/bottom_sum)
 
     total = 0
-    total += term(bctm["N11"],(bctm["N10"]+bctm["N11"]) * (bctm["N10"]+bctm["N11"]))
+    total += term(bctm["N11"],(bctm["N10"]+bctm["N11"]) * (bctm["N11"]+bctm["N01"]))
     total += term(bctm["N01"],(bctm["N01"]+bctm["N00"]) * (bctm["N01"]+bctm["N11"]))
     total += term(bctm["N10"],(bctm["N10"]+bctm["N11"]) * (bctm["N00"]+bctm["N10"]))
     total += term(bctm["N00"],(bctm["N00"]+bctm["N01"]) * (bctm["N00"]+bctm["N10"]))
